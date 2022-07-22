@@ -12,13 +12,15 @@ terraform {
 }
 
 resource "azurerm_cosmosdb_account" "this" {
-  name                          = local.cosmos_account_name
-  location                      = local.location
-  resource_group_name           = data.azurerm_resource_group.this.name
-  offer_type                    = "Standard"
-  kind                          = var.cosmos_api == "mongo" ? "MongoDB" : "GlobalDocumentDB"
-  public_network_access_enabled = var.public_network_access_enabled
-  ip_range_filter               = var.ip_firewall_enabled == true ? local.firewall_ips : null
+  name                              = local.cosmos_account_name
+  location                          = local.location
+  resource_group_name               = data.azurerm_resource_group.this.name
+  offer_type                        = "Standard"
+  kind                              = var.cosmos_api == "mongo" ? "MongoDB" : "GlobalDocumentDB"
+  public_network_access_enabled     = var.public_network_access_enabled
+  ip_range_filter                   = var.ip_firewall_enabled == true ? local.firewall_ips : null
+  is_virtual_network_filter_enabled = var.is_virtual_network_filter_enabled
+  virtual_network_rule              = var.virtual_network_rule
 
   enable_automatic_failover       = var.auto_failover
   enable_free_tier                = var.free_tier
