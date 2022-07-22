@@ -8,7 +8,9 @@ variable "is_virtual_network_filter_enabled" {
 }
 
 variable "virtual_network_rule" {
-  type        = list(string)
+  type = list(object({
+    id = string
+  }))
   description = "List of Subnet IDs which can access the cosmos db."
   default     = []
 }
